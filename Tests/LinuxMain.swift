@@ -1,7 +1,7 @@
 import XCTest
 
-import swift_nio_http2_clientTests
+import NIOHTTPClientTests
 
 var tests = [XCTestCaseEntry]()
-tests += swift_nio_http2_clientTests.allTests()
+tests += NIOHTTPClientTests.allTests()
 XCTMain(tests)
