@@ -1,3 +1,3 @@
-# swift-nio-http2-client
+# swift-nio-http-client
 
-A description of this package.
+An HTTP clinet build on top of [SwiftNIO](https://github.com/apple/swift-nio) with support for HTTP/2.
