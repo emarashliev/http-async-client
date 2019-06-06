@@ -1,7 +1,7 @@
 import Foundation
 import NIOHTTP1
 
-public struct HTTPRequest {
+public struct NIOHTTPClientRequest {
 
     public let method: HTTPMethod
     public let url: URL
@@ -24,7 +24,7 @@ public struct HTTPRequest {
     public init(
         method: HTTPMethod = .GET,
         url: URL,
-        version: HTTPVersion = .init(major: 1, minor: 1),
+        version: HTTPVersion = .init(major: 2, minor: 0),
         headers: HTTPHeaders = .init(),
         body: Data = .init()
     ) throws {

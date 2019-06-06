@@ -4,7 +4,7 @@ import NIOHTTP1
 import NIOHTTP2
 import NIOSSL
 
-public final class NIOHTTP2Client {
+public final class NIOHTTPClient {
 
     private let sslContext: NIOSSLContext
     private let responseReceivedPromise: EventLoopPromise<[HTTPClientResponsePart]>
@@ -25,12 +25,12 @@ public final class NIOHTTP2Client {
         try? eventLoopGroup.syncShutdownGracefully()
     }
 
-    public func send(request: HTTPRequest) throws -> EventLoopFuture<HTTPResponse> {
+    public func send(request: NIOHTTPClientRequest) throws -> EventLoopFuture<NIOHTTPClientResponse> {
         return try bootstrap(request: request)
             .connect(host: request.host, port: request.port)
             .flatMap { channel in
                 return self.responseReceivedPromise.futureResult
-                    .map { responseParts -> HTTPResponse in
+                    .map { responseParts -> NIOHTTPClientResponse in
                         var data = Data()
                         var string = String()
                         var responseHead: HTTPResponseHead!
@@ -57,7 +57,7 @@ public final class NIOHTTP2Client {
                                 }
 
                             case .end(_):
-                                return HTTPResponse(
+                                return NIOHTTPClientResponse(
                                     responseHead: responseHead,
                                     body: (data: data, string: string)
                                 )
@@ -66,7 +66,7 @@ public final class NIOHTTP2Client {
 
                         channel.pipeline
                             .fireErrorCaught(NIOHTTP2ClientError.didNotReceiveFullResponse)
-                        return HTTPResponse(
+                        return NIOHTTPClientResponse(
                             responseHead: responseHead,
                             body: (data: data, string: string)
                         )
@@ -75,7 +75,7 @@ public final class NIOHTTP2Client {
     }
 
 
-    private func bootstrap(request: HTTPRequest) throws -> ClientBootstrap {
+    private func bootstrap(request: NIOHTTPClientRequest) throws -> ClientBootstrap {
         let sslHandler = try NIOSSLClientHandler(
             context: self.sslContext,
             serverHostname: request.host
@@ -91,8 +91,8 @@ public final class NIOHTTP2Client {
                         }
                     }
                     .flatMap { http2Multiplexer -> EventLoopFuture<Void> in
-                        let protocolsHandler = ProtocolsHandler()
-                        let errorHandler = ErrorHandler(responseReceivedPromise: self.responseReceivedPromise)
+                        let protocolsHandler = NIOHTTPClientProtocolsHandler()
+                        let errorHandler = NIOHTTPClientErrorHandler(responseReceivedPromise: self.responseReceivedPromise)
                         return channel.pipeline
                             .addHandler(protocolsHandler, position: .after(sslHandler))
                             .flatMap {
@@ -113,11 +113,11 @@ public final class NIOHTTP2Client {
     }
 
 
-    private func requestStreamInitializer(request: HTTPRequest) -> ((
+    private func requestStreamInitializer(request: NIOHTTPClientRequest) -> ((
         _ channel: Channel,
         _ streamID: HTTP2StreamID
     ) -> EventLoopFuture<Void>) {
-        let requestHandler = HTTPClientHandler(
+        let requestHandler = NIOHTTPClientHandler(
             request: request,
             responsePromise: responseReceivedPromise
         )

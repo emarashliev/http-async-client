@@ -1,7 +1,7 @@
 import NIO
 import NIOHTTP1
 
-final class ErrorHandler: ChannelInboundHandler {
+final class NIOHTTPClientErrorHandler: ChannelInboundHandler {
     typealias InboundIn = Never
 
     private let responseReceivedPromise: EventLoopPromise<[HTTPClientResponsePart]>

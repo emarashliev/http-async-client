@@ -2,7 +2,7 @@ import NIO
 import NIOTLS
 import NIOSSL
 
-final class ProtocolsHandler: ChannelInboundHandler {
+final class NIOHTTPClientProtocolsHandler: ChannelInboundHandler {
     typealias InboundIn = ByteBuffer
     typealias InboundOut = ByteBuffer
 

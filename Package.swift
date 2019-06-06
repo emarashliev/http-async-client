@@ -4,27 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-nio-http2-client",
+    name: "swift-nio-http-client",
 
      products: [
-        .executable(name: "NIOHTTP2ClientExample", targets: ["NIOHTTP2ClientExample"]),
-        .library(name: "NIOHTTP2Client", targets: ["NIOHTTP2Client"]),
+        .executable(name: "NIOHTTPClientExample", targets: ["NIOHTTPClientExample"]),
+        .library(name: "NIOHTTPClient", targets: ["NIOHTTPClient"]),
      ],
 
     dependencies: [
-        .package(url: "https://github.com/vapor/http", from: "2.0.0"),
         .package(url: "https://github.com/apple/swift-nio", from: "2.0.0"),
         .package(url: "https://github.com/apple/swift-nio-ssl", from: "2.0.0"),
         .package(url: "https://github.com/apple/swift-nio-http2", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-nio-extras", from: "1.0.0"),
     ],
 
     targets: [
-        .target(name: "NIOHTTP2ClientExample", dependencies: ["NIOHTTP2Client"]),
+        .target(name: "NIOHTTPClientExample", dependencies: ["NIOHTTPClient"]),
         .target(
-            name: "NIOHTTP2Client",
-            dependencies: ["NIO", "NIOSSL", "NIOHTTP1", "NIOHTTP2", "NIOTLS", "NIOExtras"]
+            name: "NIOHTTPClient",
+            dependencies: ["NIO", "NIOSSL", "NIOHTTP1", "NIOHTTP2", "NIOTLS"]
         ),
-        .testTarget(name: "NIOHTTP2ClientTests", dependencies: ["NIOHTTP2Client"]),
+        .testTarget(name: "NIOHTTPClientTests", dependencies: ["NIOHTTPClient"]),
     ]
 )
