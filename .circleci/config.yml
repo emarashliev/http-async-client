@@ -1,17 +1,14 @@
 version: 2.1
 
 jobs:
-  macos:
-    macos:
-      xcode: "10.2.0"
-    steps:
-      - checkout
-      - run: swift build
-      - run: swift test
   bionic:
     docker:
       - image: swift:5.0-bionic
     steps:
       - checkout
-      - run: swift build --disable-index-store
-      - run: swift test --disable-index-store
+      - run: swift test -v
+
+workflows:
+  workflow:
+    jobs:
+      - bionic
