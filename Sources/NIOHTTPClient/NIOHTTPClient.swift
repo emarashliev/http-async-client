@@ -65,7 +65,7 @@ public final class NIOHTTPClient {
                         }
 
                         channel.pipeline
-                            .fireErrorCaught(NIOHTTP2ClientError.didNotReceiveFullResponse)
+                            .fireErrorCaught(NIOHTTPClientError.didNotReceiveFullResponse)
                         return NIOHTTPClientResponse(
                             responseHead: responseHead,
                             body: (data: data, string: string)

@@ -35,7 +35,7 @@ public struct NIOHTTPClientRequest {
         self.body = body
 
         guard let maybeHost = url.host else {
-            throw NIOHTTP2ClientError.URLDoesNotHaveHost
+            throw NIOHTTPClientError.URLDoesNotHaveHost
         }
         host = maybeHost
 

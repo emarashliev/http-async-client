@@ -17,7 +17,7 @@ final class NIOHTTPClientProtocolsHandler: ChannelInboundHandler {
     func userInboundEventTriggered(context: ChannelHandlerContext, event: Any) {
         if self.bytesSeen == 0 {
             if case let event = event as? TLSUserEvent, event == .shutdownCompleted || event == .handshakeCompleted(negotiatedProtocol: nil) {
-                context.fireErrorCaught(NIOHTTP2ClientError.serverDoesNotSpeakHTTP2)
+                context.fireErrorCaught(NIOHTTPClientError.serverDoesNotSpeakHTTP2)
                 return
             }
         }
@@ -30,7 +30,7 @@ final class NIOHTTPClientProtocolsHandler: ChannelInboundHandler {
             case NIOSSLError.uncleanShutdown,
                  is IOError where (error as! IOError).errnoCode == ECONNRESET:
                 // this is very highly likely a server doesn't speak HTTP/2 problem
-                context.fireErrorCaught(NIOHTTP2ClientError.serverDoesNotSpeakHTTP2)
+                context.fireErrorCaught(NIOHTTPClientError.serverDoesNotSpeakHTTP2)
                 return
             default:
                 ()
