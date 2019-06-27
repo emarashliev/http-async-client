@@ -1,7 +1,7 @@
 import Foundation
 import NIOHTTP1
 
-public struct NIOHTTPClientResponse {
+public struct HTTPAsyncClientResponse {
     public internal(set) var responseHead: HTTPResponseHead
     public internal(set) var body: (data: Data, string: String)
 

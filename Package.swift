@@ -4,11 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-nio-http-client",
+    name: "http-async-client",
 
      products: [
-        .executable(name: "NIOHTTPClientExample", targets: ["NIOHTTPClientExample"]),
-        .library(name: "NIOHTTPClient", targets: ["NIOHTTPClient"]),
+        .executable(name: "HTTPAsyncClientExample", targets: ["HTTPAsyncClientExample"]),
+        .library(name: "HTTPAsyncClient", targets: ["HTTPAsyncClient"]),
      ],
 
     dependencies: [
@@ -18,11 +18,11 @@ let package = Package(
     ],
 
     targets: [
-        .target(name: "NIOHTTPClientExample", dependencies: ["NIOHTTPClient"]),
+        .target(name: "HTTPAsyncClientExample", dependencies: ["HTTPAsyncClient"]),
         .target(
-            name: "NIOHTTPClient",
+            name: "HTTPAsyncClient",
             dependencies: ["NIO", "NIOSSL", "NIOHTTP1", "NIOHTTP2", "NIOTLS"]
         ),
-        .testTarget(name: "NIOHTTPClientTests", dependencies: ["NIOHTTPClient"]),
+        .testTarget(name: "HTTPAsyncClientTests", dependencies: ["HTTPAsyncClient"]),
     ]
 )

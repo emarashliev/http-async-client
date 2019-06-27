@@ -1,15 +1,15 @@
 import NIO
 import NIOHTTP1
 
-final class NIOHTTPClientHandler: ChannelInboundHandler {
+final class HTTPAsyncClientHandler: ChannelInboundHandler {
     typealias InboundIn = HTTPClientResponsePart
     typealias OutboundOut = HTTPClientRequestPart
 
     private let responsePromise: EventLoopPromise<[HTTPClientResponsePart]>
     private var responseAccumulator: [HTTPClientResponsePart] = []
-    private let request: NIOHTTPClientRequest
+    private let request: HTTPAsyncClientRequest
 
-    init(request: NIOHTTPClientRequest, responsePromise: EventLoopPromise<[HTTPClientResponsePart]>) {
+    init(request: HTTPAsyncClientRequest, responsePromise: EventLoopPromise<[HTTPClientResponsePart]>) {
         self.responsePromise = responsePromise
         self.request = request
     }

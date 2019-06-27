@@ -1,7 +1,7 @@
 import XCTest
-@testable import NIOHTTPClient
+@testable import HTTPAsyncClient
 
-final class NIOHTTPClientTests: XCTestCase {
+final class HTTPAsyncClientTests: XCTestCase {
     var text: String {
         return "Hello, World!"
     }

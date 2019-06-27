@@ -1,7 +1,7 @@
 import Foundation
 import NIOHTTP1
 
-public struct NIOHTTPClientRequest {
+public struct HTTPAsyncClientRequest {
 
     public let method: HTTPMethod
     public let url: URL
@@ -35,7 +35,7 @@ public struct NIOHTTPClientRequest {
         self.body = body
 
         guard let maybeHost = url.host else {
-            throw NIOHTTPClientError.URLDoesNotHaveHost
+            throw HTTPAsyncClientError.URLDoesNotHaveHost
         }
         host = maybeHost
 
