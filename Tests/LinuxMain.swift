@@ -1,7 +1,6 @@
 import XCTest
-
-import NIOHTTPClientTests
+import HTTPAsyncClientTests
 
 var tests = [XCTestCaseEntry]()
-tests += NIOHTTPClientTests.allTests()
+tests += HTTPAsyncClientTests.allTests()
 XCTMain(tests)
